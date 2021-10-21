@@ -47,6 +47,51 @@
            </tbody>
        </table>
     </div>
+
+    <!-- Atualizar modelo --> 
+    <form action="" method="POST" class="usuarios-atualizam-modelo-registro form-horizontal">
+        <div id="atualizar-modal" data-backdrop="static" data-keyboard="false" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="width: 55%;">
+                <div class="modal-content" style="overflow: hidden;">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="custom-width-modalLabel">Atualizar</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    </div>
+                
+                    <div class="modal-body" id="atualizarBody"></div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-success atualizarUsuario">Atualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Excluir modelo --> 
+    <form action="" method="POST" class="usuarios-removem-modelo-registro">
+        <div id="remover-modal" data-backdrop="static" data-keyboard="false" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-dialog-centered" style="width: 55%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="custom-width-modalLabel">Deletar</h4>
+                        <button type="button" class="remover-dados-formulario-exclusao" data-dismiss="modal" aria-hidden="true">X</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <p>Você quer deletar este registro?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect remover-dados-formulario-exclusao" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-danger waves-effect waves-light apagarRegistro">Deletar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
     <!-- O SDK JS do Firebase principal é sempre necessário e deve ser listado primeiro -->
     <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
 
