@@ -28,7 +28,7 @@ firebase.database().ref('Usuarios/').on('value', function(snapshot) {
                         <td>' + value.nome + '</td>\
                         <td>' + value.email + '</td>\
                         <td><button data-toggle="modal" data-target="#atualizar-modal" class="btn btn-info atualizarDado" data-id="' + index + '">Atualizar</button>\
-                            <button data-toggle="modal" data-target="#remover-modal"   class="btn btn-danger removerDado" data-id="' + index + '">Deletar</button>\
+                            <button data-toggle="modal" data-target="#remover-modal"  class="btn btn-danger removerDados" data-id="' + index + '">Deletar</button></td>\
                         </tr>');
         }
         ultimoIndice = index;
@@ -55,4 +55,63 @@ $('#enviarUsuario').on('click', function() {
     // Reatribuir o valor ultimoID
     ultimoIndice = usuarioID;
     $("#addUsuario input").val("");
+});
+
+
+// Dados de atualização
+var atualizarID = 0;
+$('body').on('click', '.atualizarDado', function() {
+    atualizarID = $(this).attr('data-id');
+    firebase.database().ref('Usuarios/' + atualizarID).on('value', function(snapshot) {
+        var values = snapshot.val();
+        var atualizarDado = '<div class="form-group">\
+                                <label for="nome" class="col-md-12 col-form-label">Nome</label>\
+                                <div class="col-md-12">\
+                                    <input id="nome" type="text" class="form-control" name="nome" value="' + values.nome + '" required autofocus>\
+                                </div>\
+                            </div>\
+                            <div class="form-group">\
+                                <label for="email" class="col-md-12 col-form-label">Email</label>\
+                                <div class="col-md-12">\
+                                    <input id="email" type="text" class="form-control" name="email" value="' + values.email + '" required autofocus>\
+                                </div>\
+                            </div>';
+
+        $('#atualizarBody').html(atualizarDado);
+    });
+});
+
+$('.atualizarUsuario').on('click', function() {
+    var values = $(".usuarios-atualizam-modelo-registro").serializeArray();
+    var dadosPostagem = {
+        nome: values[0].value,
+        email: values[1].value,
+    };
+
+    var atualizar = {};
+    atualizar['/Usuarios/' + atualizarID] = dadosPostagem;
+
+    firebase.database().ref().update(atualizar);
+
+    $("#atualizar-modal").modal('hide');
+});
+
+// Remover Dados
+$("body").on('click', '.removerDados', function() {
+    var id = $(this).attr('data-id');
+    $('body').find('.usuarios-removem-modelo-registro').append('<input name="id" type="hidden" value="' + id + '">');
+});
+
+$('.apagarRegistro').on('click', function() {
+    var values = $(".usuarios-removem-modelo-registro").serializeArray();
+    var id = values[0].value;
+
+    firebase.database().ref('Usuarios/' + id).remove();
+
+    $('body').find('.usuarios-removem-modelo-registro').find("input").remove();
+    $("#remover-modal").modal('hide');
+});
+
+$('.remover-dados-formulario-exclusao').click(function() {
+    $('body').find('.usuarios-removem-modelo-registro').find("input").remove();
 });
